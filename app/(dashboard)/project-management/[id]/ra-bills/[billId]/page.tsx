@@ -2,7 +2,7 @@ import { supabase } from "@/lib/supabase";
 import PrintButton from "@/components/PrintButton";
 import { numberToWords } from "@/lib/numberToWords";
 import { getShortDescription } from "@/lib/getShortDescription";
-import { getCategory } from "@/lib/getCategory";
+import { getCategory } from "@/services/getCategory";
 
 export default async function BillDetails({
   params,

@@ -1,5 +1,6 @@
 import Sidebar from "@/components/layout/Sidebar";
 import Header from "@/components/layout/Header";
+import { Toaster } from "react-hot-toast";
 
 export default function DashboardLayout({
   children,
@@ -7,19 +8,29 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex bg-slate-100">
+    <>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            background: "#ffffff",
+            color: "#0f172a",
+            border: "1px solid #e2e8f0",
+          },
+        }}
+      />
 
-      <Sidebar />
+      <div className="flex bg-slate-100">
+        <Sidebar />
 
-      <div className="flex-1 min-h-screen flex flex-col">
+        <div className="flex-1 min-h-screen flex flex-col">
+          <Header />
 
-        <Header />
-
-        <main className="p-6">
-          {children}
-        </main>
-
+          <main className="p-6">
+            {children}
+          </main>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

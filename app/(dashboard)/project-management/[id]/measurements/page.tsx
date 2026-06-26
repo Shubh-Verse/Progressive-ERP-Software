@@ -1,5 +1,4 @@
 import { supabase } from "@/lib/supabase";
-import MeasurementForm from "@/components/MeasurementForm";
 
 export default async function MeasurementsPage({
   params,
@@ -106,10 +105,10 @@ export default async function MeasurementsPage({
               </div>
             </div>
 
-            <MeasurementForm
+            {/* <MeasurementForm
               projectId={Number(id)}
               boqItemId={item.id}
-            />
+            /> */}
           </div>
         ))}
       </div>

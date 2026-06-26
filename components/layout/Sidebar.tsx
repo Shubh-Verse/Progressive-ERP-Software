@@ -28,23 +28,6 @@ const menus = [
     href: "/project-management",
     icon: FolderKanban,
   },
-
-
-  {
-    title: "BOQ",
-    href: "/boq",
-    icon: ClipboardList,
-  },
-  {
-    title: "Measurements",
-    href: "/measurements",
-    icon: Ruler,
-  },
-  {
-    title: "Bills",
-    href: "/bills",
-    icon: Receipt,
-  },
   {
     title: "Materials",
     href: "/materials",
