@@ -104,14 +104,17 @@ export async function linkDSRToBOQ(
 export async function getBOQItemById(id: number) {
   const { data, error } = await supabase
     .from("boq_items")
-    .select("*")
+    .select(`
+      *,
+      projects(*)
+    `)
     .eq("id", id)
     .single();
 
-  if (error) {
-    console.error(error);
-    throw error;
-  }
+  console.log("DATA:", data);
+  console.log("ERROR:", error);
+
+  if (error) throw error;
 
   return data;
 }

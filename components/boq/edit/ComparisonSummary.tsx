@@ -8,12 +8,16 @@ import {
     FileSearch,
 } from "lucide-react";
 
+import { ReferenceDetail } from "@/types/dsr";
+
 interface Props {
     item: any;
+    reference: ReferenceDetail | null;
 }
 
 export default function ComparisonSummary({
     item,
+    reference,
 }: Props) {
 
     const boqRate = Number(item.rate);

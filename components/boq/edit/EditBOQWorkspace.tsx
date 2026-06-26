@@ -1,58 +1,109 @@
 "use client";
 
+import { useState } from "react";
+
 import ProjectInformation from "./ProjectInformation";
 import BOQInformation from "./BOQInformation";
 import ComparisonSummary from "./ComparisonSummary";
 
-import BOQReferencePanel from "@/components/reference/BOQReferencePanel";
 import EditBOQForm from "../EditBOQForm";
 
+import BOQReferencePanel from "@/components/reference/BOQReferencePanel";
+import ReferenceSearchDialog from "@/components/reference/ReferenceSearchDialog";
+
+import { getReference } from "@/services/reference";
+import { ReferenceDetail } from "@/types/dsr";
+
 interface Props {
-    item: any;
+  item: any;
 }
 
 export default function EditBOQWorkspace({
-    item,
+  item,
 }: Props) {
 
-    return (
+  const [reference, setReference] =
+    useState<ReferenceDetail | null>(null);
 
-        <div className="space-y-8">
+  const [loading, setLoading] =
+    useState(false);
 
-            {/* Project */}
+  const [showSearch, setShowSearch] =
+    useState(false);
 
-            <ProjectInformation
-                project={item.projects}
-            />
+  async function handleSelectReference(
+    id: number
+  ) {
 
-            {/* BOQ + DSR */}
+    try {
 
-            <div className="grid grid-cols-2 gap-8">
+      setLoading(true);
 
-                <BOQInformation
-                    item={item}
-                />
+      const data = await getReference(id);
 
-                <BOQReferencePanel
-                    item={item}
-                />
+      setReference(data);
 
-            </div>
+      setShowSearch(false);
 
-            {/* Comparison */}
+    } finally {
 
-            <ComparisonSummary
-                item={item}
-            />
+      setLoading(false);
 
-            {/* Edit */}
+    }
 
-            <EditBOQForm
-                item={item}
-            />
+  }
+  console.log(item);
+console.log(item.projects);
 
-        </div>
+  return (
 
-    );
+    <div className="space-y-8">
+
+      {/* Project Information */}
+
+      <ProjectInformation
+        project={item.projects}
+      />
+
+      {/* BOQ + DSR */}
+
+      <div className="grid grid-cols-2 gap-8">
+
+        <BOQInformation
+          item={item}
+        />
+
+        <BOQReferencePanel
+          reference={reference}
+          loading={loading}
+          onSearch={() => setShowSearch(true)}
+        />
+
+      </div>
+
+      {/* Comparison */}
+
+      <ComparisonSummary
+        item={item}
+        reference={reference}
+      />
+
+      {/* Edit Form */}
+
+      <EditBOQForm
+        item={item}
+      />
+
+      {/* Search Dialog */}
+
+      <ReferenceSearchDialog
+        open={showSearch}
+        onClose={() => setShowSearch(false)}
+        onSelect={handleSelectReference}
+      />
+
+    </div>
+
+  );
 
 }
